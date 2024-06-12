@@ -6,36 +6,36 @@ const userSchema = new Schema(
     {
         userName: {
             type: String,
-            required: [true, "UserName is required"],
+            required: [true, 'UserName is required'],
             unique: true,
             lowercase: true,
             trim: true,
-            index: true,
+            index: true
         },
         email: {
             type: String,
-            required: [true, "Email is required"],
+            required: [true, 'Email is required'],
             unique: true,
             lowercase: true,
             trim: true,
         },
         fullName: {
             type: String,
-            required: [true, "FullName is required"],
+            required: [true, 'FullName is required'],
             trim: true,
-            index: true,
+            index: true
         },
         avatar: {
             type: String,
-            required: [true, "Avatar is required"],
+            required: [true, 'Avatar is required'],
         },
         coverImage: {
             type: String,
         },
         watchHistory: [
             {
-                type: Schema.Types.ObjecId,
-                ref: "video"
+                type: Schema.Types.ObjectId,
+                ref: "Video"
             }
         ],
         password: {
@@ -53,7 +53,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
 
-    if(!this.isModified("password")) return next()
+    if (!this.isModified("password")) return next();
 
     this.password = await bcrypt.hash(this.password, 10)
     next()
