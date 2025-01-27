@@ -75,13 +75,13 @@ and also combines the tweet functionality from twitter into it. Find more about 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/Hruthik-28/youtube-twitter.git
+    git clone https://github.com/shailesh-singh-ss/Youtube-Backend-Learning.git
     ```
 
 2. **Install dependencies:**
 
     ```bash
-    cd youtube-twitter
+    cd Youtube-Backend-Learning
     npm install
     ```
 
