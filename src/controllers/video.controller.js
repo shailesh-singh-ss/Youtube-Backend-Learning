@@ -1,4 +1,3 @@
-import { application } from "express";
 import { Video } from "../models/video.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -33,12 +32,17 @@ const getAllVideos = asyncHandler(async (req, res) => {
 
     const count = await Video.countDocuments(filter)
 
-    res.json({
-        videos,
-        currentPage: page,
-        totalPages: Math.ceil(count / limit),
-        totalCount: count,
-    })
+    return res
+        .status(200)
+        .json(new ApiResponse(200,
+            {
+                videos,
+                currentPage: page,
+                totalPages: Math.ceil(count / limit),
+                totalCount: count,
+            },
+            "All videos fetch successfully"
+        ))
 })
 
 
@@ -46,7 +50,7 @@ const getAllVideos = asyncHandler(async (req, res) => {
 const publishVideo = asyncHandler(async (req, res) => {
     const { title, description } = req.body
 
-    if (!title || !description) {
+    if (!title.trim() || !description.trim()) {
         throw new ApiError(400, "All fields are required")
     }
 

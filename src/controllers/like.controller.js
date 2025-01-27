@@ -11,9 +11,9 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Video Id is invalid")
     }
 
-    const like = await Like.find({ likedBy: req.user?._id, video: videoId }).select("_id")
+    const like = await Like.findOne({ likedBy: req.user?._id, video: videoId }).select("_id")
 
-    if (!like.length) {
+    if (!like) {
         const likedVideo = await Like.create({
             video: videoId,
             likedBy: req.user._id
@@ -29,7 +29,7 @@ const toggleVideoLike = asyncHandler(async (req, res) => {
         
     }
 
-    const deleteLike = await Like.findByIdAndDelete(like)
+    const deleteLike = await Like.findByIdAndDelete(like._id)
 
     if (!deleteLike) {
         throw new ApiError(401, "Something went while unliking the video")
